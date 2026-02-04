@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Shelf | Knowledge Architecture Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --coral: #E85D75;
+      --orange: #F5A623;
+      --gold: #F8D568;
+      --lime: #A8D86E;
+      --teal: #4ECDC4;
+      --sky: #5BC0EB;
+      --indigo: #6C5CE7;
+      --purple: #A855F7;
+      --pink: #EC4899;
+      --rose: #F472B6;
+      --mint: #6EE7B7;
+      --slate: #64748B;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fafafa;
+      color: #1a1a2e;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 18px;
+      margin-left: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--slate);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: #f3f4f6;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 32px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    }
+
+    .color-bar {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 32px;
+    }
+
+    .color-segment {
+      width: 40px;
+      height: 6px;
+      border-radius: 3px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.7; transform: scaleY(0.8); }
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--coral), var(--purple), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: 22px;
+      color: var(--slate);
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 80px 32px;
+    }
+
+    section:nth-child(odd) {
+      background: white;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--slate);
+      margin-bottom: 48px;
+      font-size: 18px;
+    }
+
+    /* Method Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 800px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 40px; }
+    }
+
+    .step-card {
+      padding: 24px;
+      border-radius: 16px;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .step-card:hover, .step-card.active {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .step-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 14px;
+      color: var(--slate);
+    }
+
+    /* Concept Cloud */
+    .concept-cloud {
+      padding: 40px;
+      border-radius: 24px;
+      background: #f9fafb;
+      border: 2px dashed #e5e7eb;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .concept {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 4px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .concept:nth-child(2) { animation-delay: 0.2s; }
+    .concept:nth-child(3) { animation-delay: 0.4s; }
+    .concept:nth-child(4) { animation-delay: 0.6s; }
+    .concept:nth-child(5) { animation-delay: 0.8s; }
+    .concept:nth-child(6) { animation-delay: 1s; }
+    .concept:nth-child(7) { animation-delay: 1.2s; }
+    .concept:nth-child(8) { animation-delay: 1.4s; }
+
+    /* Library Grid */
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .book-card {
+      padding: 20px;
+      border-radius: 16px;
+      background: white;
+      border: 3px solid #e5e7eb;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .book-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .book-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .book-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .book-dewey {
+      font-size: 12px;
+      color: var(--slate);
+      font-weight: 500;
+    }
+
+    .book-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .book-card .author {
+      font-size: 14px;
+      color: var(--slate);
+    }
+
+    /* Book Detail */
+    .book-detail {
+      padding: 32px;
+      border-radius: 20px;
+      background: white;
+      margin-top: 24px;
+      display: none;
+    }
+
+    .book-detail.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .book-detail h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .concepts-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .concept-item {
+      padding: 12px 20px;
+      border-radius: 16px;
+    }
+
+    .concept-item .term {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .concept-item .subs {
+      font-size: 12px;
+      color: var(--slate);
+    }
+
+    /* Connections */
+    .connections-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .connection {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .connection-term {
+      padding: 4px 12px;
+      border-radius: 12px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .connection-arrow {
+      color: var(--slate);
+      font-size: 20px;
+    }
+
+    .connection-domains {
+      font-size: 12px;
+      color: var(--slate);
+      margin-left: auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 32px;
+      background: #1a1a2e;
+      text-align: center;
+    }
+
+    .footer-bar {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .footer-segment {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    footer p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    footer .small {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    /* Case Study Box */
+    .case-study-box {
+      padding: 32px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 20px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 48px;
+    }
+
+    .case-study-box h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--indigo);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <div class="logo-dots">
+        <div class="logo-dot" style="background: var(--coral)"></div>
+        <div class="logo-dot" style="background: var(--gold)"></div>
+        <div class="logo-dot" style="background: var(--teal)"></div>
+        <div class="logo-dot" style="background: var(--purple)"></div>
+      </div>
+      <span class="logo-text">Neural Shelf</span>
+    </div>
+    <div class="nav-links">
+      <a href="#walkthrough">See It</a>
+      <a href="#method">Method</a>
+      <a href="#library">Library</a>
+      <a href="#connections">Connections</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="color-bar">
+      <div class="color-segment" style="background: var(--coral); animation-delay: 0s"></div>
+      <div class="color-segment" style="background: var(--orange); animation-delay: 0.1s"></div>
+      <div class="color-segment" style="background: var(--gold); animation-delay: 0.2s"></div>
+      <div class="color-segment" style="background: var(--lime); animation-delay: 0.3s"></div>
+      <div class="color-segment" style="background: var(--teal); animation-delay: 0.4s"></div>
+      <div class="color-segment" style="background: var(--sky); animation-delay: 0.5s"></div>
+      <div class="color-segment" style="background: var(--indigo); animation-delay: 0.6s"></div>
+      <div class="color-segment" style="background: var(--purple); animation-delay: 0.7s"></div>
+      <div class="color-segment" style="background: var(--pink); animation-delay: 0.8s"></div>
+      <div class="color-segment" style="background: var(--mint); animation-delay: 0.9s"></div>
+    </div>
+    <h1>Neural Shelf</h1>
+    <p>A visual knowledge architecture system <em>and personal research practice</em> that transforms book indexes into cross-disciplinary insight through <strong>index mining</strong>, <strong>color-coded mapping</strong>, and <strong>structural reasoning</strong>.</p>
+    <p style="font-size: 16px; color: #94a3b8; margin-bottom: 32px; font-style: italic;">For people who see systems before stories, patterns before points, and structure before content.</p>
+    <div class="tags">
+      <span class="tag" style="background: #E85D7522; color: var(--coral)">Psychology</span>
+      <span class="tag" style="background: #F5A62322; color: var(--orange)">Library Science</span>
+      <span class="tag" style="background: #4ECDC422; color: var(--teal)">Mathematics</span>
+      <span class="tag" style="background: #A855F722; color: var(--purple)">AI Literacy</span>
+    </div>
+  </section>
+
+  <!-- Who This Is For -->
+  <section style="padding: 48px 32px; background: white;">
+    <div class="container" style="max-width: 800px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <div style="padding: 24px; background: #f0fdf4; border-radius: 16px; border: 2px solid #bbf7d0;">
+          <h3 style="font-size: 16px; font-weight: 700; color: #166534; margin-bottom: 12px;">✓ This is for you if...</h3>
+          <ul style="color: #15803d; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
+            <li>You think in <strong>systems and relationships</strong>, not bullet points</li>
+            <li>You notice the same idea appearing in different disciplines</li>
+            <li>You've felt that notes and highlights flatten what you actually learned</li>
+            <li>You're drawn to <strong>mathematical, visual, or spatial</strong> ways of understanding</li>
+          </ul>
+        </div>
+        <div style="padding: 24px; background: #fef2f2; border-radius: 16px; border: 2px solid #fecaca;">
+          <h3 style="font-size: 16px; font-weight: 700; color: #991b1b; margin-bottom: 12px;">✗ This is not for you if...</h3>
+          <ul style="color: #b91c1c; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
+            <li>You want a tool to <strong>store and retrieve</strong> information</li>
+            <li>You prefer linear summaries over structural maps</li>
+            <li>You're looking for a second-brain or note-taking app</li>
+            <li>You want AI to do the thinking for you</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Section -->
+  <section style="padding: 48px 32px; background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);">
+    <div class="container" style="max-width: 700px; text-align: center;">
+      <h2 style="font-size: 24px; color: white; margin-bottom: 16px;">Why I Built This</h2>
+      <p style="color: #cbd5e1; font-size: 18px; line-height: 1.8;">
+        I built Neural Shelf to solve a personal problem: traditional note-taking flattened ideas that felt <em>spatial</em>, <em>relational</em>, and <em>structural</em> in my mind. Index mining became a way to externalize how I actually recognize meaning—by patterns, clusters, and recurring shapes across domains.
+      </p>
+      <p style="color: #94a3b8; font-size: 15px; margin-top: 20px; font-style: italic;">
+        This is not a note-taking system, summary engine, or recommendation algorithm. It is a <strong style="color: #e2e8f0;">structural discovery process</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- About the Builder -->
+  <section style="padding: 48px 32px; background: #fafafa;">
+    <div class="container" style="max-width: 650px; text-align: center;">
+      <h2 style="font-size: 20px; margin-bottom: 16px; color: var(--indigo);">About the Builder</h2>
+      <p style="color: var(--slate); font-size: 16px; line-height: 1.8;">
+        I'm a self-directed researcher exploring how people who think in patterns, systems, and relationships learn best. Neural Shelf began as a personal experiment to externalize my own cognition. It has since become a repeatable methodology for <strong>knowledge discovery</strong>, <strong>learning design</strong>, and <strong>AI-assisted sensemaking</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- What Makes This Different -->
+  <section style="padding: 48px 32px; background: white;">
+    <div class="container">
+      <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--coral), var(--orange)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 24px;">📐</span>
+          </div>
+          <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">Structure Before Reading</div>
+          <div style="color: var(--slate); font-size: 14px;">Extract architecture first</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--sky)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 24px;">📊</span>
+          </div>
+          <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">Indexes as Datasets</div>
+          <div style="color: var(--slate); font-size: 14px;">Mine the metadata layer</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--pink)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 24px;">🔮</span>
+          </div>
+          <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">Concepts as Objects</div>
+          <div style="color: var(--slate); font-size: 14px;">Ideas you can move and link</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- See It In Action - Concrete Walkthrough -->
+  <section id="walkthrough" style="padding: 64px 32px; background: #f8fafc;">
+    <div class="container" style="max-width: 900px;">
+      <h2 style="font-size: 28px; margin-bottom: 8px;">See It In Action</h2>
+      <p class="section-desc" style="margin-bottom: 40px;">One index mining session with <em>Flow</em> by Mihaly Csikszentmihalyi</p>
+
+      <div style="display: grid; gap: 24px;">
+        <!-- Step 1 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="min-width: 48px; height: 48px; border-radius: 12px; background: var(--coral); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">1</div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Skip to the index</h3>
+            <p style="color: var(--slate); font-size: 15px;">I don't start by reading. I open directly to the back of the book and scan the index—the author's own map of what matters.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="min-width: 48px; height: 48px; border-radius: 12px; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">2</div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Extract and color-code</h3>
+            <p style="color: var(--slate); font-size: 15px; margin-bottom: 12px;">I pull out concepts and mark them by type. From <em>Flow</em>'s index:</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #EC489922; color: var(--pink); border: 2px solid var(--pink);">flow state</span>
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #F8D56822; color: var(--gold); border: 2px solid var(--gold);">challenge vs skill</span>
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #6C5CE722; color: var(--indigo); border: 2px solid var(--indigo);">autotelic personality</span>
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #4ECDC422; color: var(--teal); border: 2px solid var(--teal);">optimal experience</span>
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #E85D7522; color: var(--coral); border: 2px solid var(--coral);">anxiety threshold</span>
+              <span style="padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; background: #A8D86E22; color: var(--lime); border: 2px solid var(--lime);">boredom threshold</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="min-width: 48px; height: 48px; border-radius: 12px; background: var(--teal); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">3</div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Notice structural patterns</h3>
+            <p style="color: var(--slate); font-size: 15px;">The index reveals a <strong>two-axis model</strong>: challenge level × skill level. This isn't stated explicitly in the book's introduction—it emerges from the index's architecture.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="min-width: 48px; height: 48px; border-radius: 12px; background: var(--purple); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;">4</div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Connect across books</h3>
+            <p style="color: var(--slate); font-size: 15px; margin-bottom: 12px;">Now I map <em>Flow</em>'s structure against other indexed books:</p>
+            <div style="padding: 16px; background: white; border-radius: 12px; border: 2px solid #e2e8f0;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--pink); color: white;">challenge vs skill</span>
+                <span style="color: var(--slate);">≈</span>
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--gold); color: white;">growth mindset</span>
+                <span style="font-size: 12px; color: var(--slate);">(Mindset)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--pink); color: white;">optimal experience</span>
+                <span style="color: var(--slate);">≈</span>
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--indigo); color: white;">contemplation</span>
+                <span style="font-size: 12px; color: var(--slate);">(Lost in Thought)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--pink); color: white;">autotelic personality</span>
+                <span style="color: var(--slate);">≈</span>
+                <span style="padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--purple); color: white;">brain adaptation</span>
+                <span style="font-size: 12px; color: var(--slate);">(Livewired)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Insight -->
+        <div style="margin-top: 16px; padding: 24px; background: linear-gradient(135deg, #6C5CE711, #A855F711); border-radius: 16px; border-left: 4px solid var(--indigo);">
+          <h3 style="font-size: 16px; font-weight: 700; color: var(--indigo); margin-bottom: 8px;">💡 The insight that emerges</h3>
+          <p style="color: #334155; font-size: 15px; margin: 0;">
+            Four books from different fields—positive psychology, mindset research, philosophy, neuroscience—all contain the same deep structure: <strong>transformation happens when challenge meets capacity at the edge of current ability</strong>. This pattern is invisible if you read linearly. It becomes obvious when you mine the indexes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artifact Section -->
+  <section style="padding: 64px 32px; background: white;">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--indigo);">Artifact: Recent Index Mining Session</h2>
+
+      <p style="color: #334155; font-size: 16px; line-height: 1.8; margin-bottom: 24px;">
+        The image below is a live index mining artifact from a recent Neural Shelf session.
+      </p>
+
+      <p style="color: #334155; font-size: 16px; line-height: 1.8; margin-bottom: 24px;">
+        This work occurs before synthesis, writing, or decision-making. Rather than summarizing content, it surfaces <strong>structural relationships</strong>—recurring concepts, contrasts, and cross-domain parallels—using spatial layout and color as semantic signals.
+      </p>
+
+      <p style="color: #334155; font-size: 17px; line-height: 1.7; margin-bottom: 32px; padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--teal);">
+        Neural Shelf treats indexes as compressed maps of conceptual structure, allowing patterns to emerge prior to linear interpretation.
+      </p>
+
+      <!-- Artifact image -->
+      <img src="artifact-page-01.png" alt="Live index mining artifact showing color-coded concept extraction from How to Bake Pi" style="width: 100%; border-radius: 16px; border: 2px solid #e5e7eb; margin-bottom: 16px;">
+
+      <p style="color: #94a3b8; font-size: 13px; font-style: italic; text-align: center; margin: 0;">
+        Live index mining artifact. Color and spatial proximity encode conceptual structure prior to synthesis.
+      </p>
+    </div>
+  </section>
+
+  <!-- Method Section -->
+  <section id="method">
+    <div class="container">
+      <h2>The Index Mining Method</h2>
+      <p class="section-desc">Structure before content. Extract the conceptual architecture to reveal patterns invisible in linear reading.</p>
+
+      <div class="steps-grid">
+        <div class="step-card" onclick="this.classList.toggle('active')" style="--hover-color: var(--coral)">
+          <div class="step-number" style="background: var(--coral)">1</div>
+          <h3>Extract</h3>
+          <p>Pull concepts from book indexes across disciplines</p>
+        </div>
+        <div class="step-card" onclick="this.classList.toggle('active')">
+          <div class="step-number" style="background: var(--gold)">2</div>
+          <h3>Color-Code</h3>
+          <p>Assign colors to reveal categorical patterns</p>
+        </div>
+        <div class="step-card" onclick="this.classList.toggle('active')">
+          <div class="step-number" style="background: var(--teal)">3</div>
+          <h3>Connect</h3>
+          <p>Draw relationships between related concepts</p>
+        </div>
+        <div class="step-card" onclick="this.classList.toggle('active')">
+          <div class="step-number" style="background: var(--purple)">4</div>
+          <h3>Synthesize</h3>
+          <p>Transform patterns into frameworks</p>
+        </div>
+      </div>
+
+      <!-- Outcome Sentence -->
+      <div style="text-align: center; padding: 24px; background: #f8fafc; border-radius: 16px; border-left: 4px solid var(--indigo); margin-bottom: 48px;">
+        <p style="color: #334155; font-size: 17px; margin: 0;">
+          <strong>The result:</strong> A manipulable external model of a person's conceptual landscape—something that can be <em>inspected</em>, <em>reorganized</em>, and <em>reasoned about</em>.
+        </p>
+      </div>
+
+      <div class="concept-cloud">
+        <span class="concept" style="background: var(--coral); color: white">children as philosophers</span>
+        <span class="concept" style="background: #F8D56822; color: var(--gold); border: 2px solid var(--gold)">growth mindset</span>
+        <span class="concept" style="background: var(--teal); color: white">arbitrary words</span>
+        <span class="concept" style="background: #A855F722; color: var(--purple); border: 2px solid var(--purple)">brain adaptation</span>
+        <span class="concept" style="background: var(--sky); color: white">face-to-face</span>
+        <span class="concept" style="background: #A8D86E22; color: var(--lime); border: 2px solid var(--lime)">investing</span>
+        <span class="concept" style="background: var(--pink); color: white">flow state</span>
+        <span class="concept" style="background: #6EE7B722; color: var(--mint); border: 2px solid var(--mint)">alphabetical order</span>
+        <span class="concept" style="background: var(--indigo); color: white">contemplation</span>
+        <span class="concept" style="background: #F5A62322; color: var(--orange); border: 2px solid var(--orange)">pattern detection</span>
+        <span class="concept" style="background: #F472B622; color: var(--rose); border: 2px solid var(--rose)">wabi-sabi</span>
+        <span class="concept" style="background: #7C3AED; color: white">PARA method</span>
+        <span class="concept" style="background: #EF444422; color: #EF4444; border: 2px solid #EF4444">retrieval practice</span>
+        <span class="concept" style="background: #3B82F6; color: white">abstraction</span>
+        <span class="concept" style="background: #6366F122; color: #6366F1; border: 2px solid #6366F1">lexicography</span>
+        <span class="concept" style="background: #EC4899; color: white">brain maps</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Library Section -->
+  <section id="library" style="background: #fafafa">
+    <div class="container" style="max-width: 1200px">
+      <h2>The Indexed Library</h2>
+      <p class="section-desc">Each book becomes a node in a larger knowledge network. <strong>Each entry represents a real index-mining pass, not a summary.</strong> Click to explore extracted concepts.</p>
+
+      <div class="library-grid">
+        <div class="book-card" onclick="showBook(0)" style="border-color: var(--mint)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--mint)"></div>
+            <span class="book-dewey">020 · Library Science</span>
+          </div>
+          <h3>A Place for Everything</h3>
+          <p class="author">Judith Flanders</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(1)" style="border-color: var(--coral)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--coral)"></div>
+            <span class="book-dewey">167 · Philosophy</span>
+          </div>
+          <h3>Nasty, Brutish & Short</h3>
+          <p class="author">Scott Hershovitz</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(2)" style="border-color: var(--gold)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--gold)"></div>
+            <span class="book-dewey">153.9 · Psychology</span>
+          </div>
+          <h3>Mindset</h3>
+          <p class="author">Carol Dweck</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(3)" style="border-color: var(--purple)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--purple)"></div>
+            <span class="book-dewey">612.8 · Neuroscience</span>
+          </div>
+          <h3>Livewired</h3>
+          <p class="author">David Eagleman</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(4)" style="border-color: var(--indigo)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--indigo)"></div>
+            <span class="book-dewey">153.42 · Cognition</span>
+          </div>
+          <h3>Lost in Thought</h3>
+          <p class="author">Zena Hitz</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(5)" style="border-color: var(--teal)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--teal)"></div>
+            <span class="book-dewey">400 · Linguistics</span>
+          </div>
+          <h3>The Language Puzzle</h3>
+          <p class="author">Steven Pinker</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(6)" style="border-color: var(--rose)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--rose)"></div>
+            <span class="book-dewey">111.85 · Aesthetics</span>
+          </div>
+          <h3>Wabi-Sabi</h3>
+          <p class="author">Leonard Koren</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(7)" style="border-color: var(--lime)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--lime)"></div>
+            <span class="book-dewey">332 · Personal Finance</span>
+          </div>
+          <h3>I Will Teach You to Be Rich</h3>
+          <p class="author">Ramit Sethi</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(8)" style="border-color: var(--sky)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--sky)"></div>
+            <span class="book-dewey">302.231 · Digital Life</span>
+          </div>
+          <h3>Reclaiming Conversation</h3>
+          <p class="author">Sherry Turkle</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(9)" style="border-color: var(--orange)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--orange)"></div>
+            <span class="book-dewey">003 · Systems Theory</span>
+          </div>
+          <h3>Thinking in Systems</h3>
+          <p class="author">Donella Meadows</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(10)" style="border-color: var(--pink)">
+          <div class="book-meta">
+            <div class="book-dot" style="background: var(--pink)"></div>
+            <span class="book-dewey">153.9 · Flow Psychology</span>
+          </div>
+          <h3>Flow</h3>
+          <p class="author">Mihaly Csikszentmihalyi</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(11)" style="border-color: #8B5CF6">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #8B5CF6"></div>
+            <span class="book-dewey">121 · Epistemology</span>
+          </div>
+          <h3>Being Wrong</h3>
+          <p class="author">Kathryn Schulz</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(12)" style="border-color: #06B6D4">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #06B6D4"></div>
+            <span class="book-dewey">028 · Reading Culture</span>
+          </div>
+          <h3>The Reading Life</h3>
+          <p class="author">C.S. Lewis</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(13)" style="border-color: #D946EF">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #D946EF"></div>
+            <span class="book-dewey">002 · Book History</span>
+          </div>
+          <h3>The Book</h3>
+          <p class="author">Keith Houston</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(14)" style="border-color: #14B8A6">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #14B8A6"></div>
+            <span class="book-dewey">745.2 · UX Design</span>
+          </div>
+          <h3>Design of Everyday Things</h3>
+          <p class="author">Don Norman</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(15)" style="border-color: #F97316">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #F97316"></div>
+            <span class="book-dewey">612.82 · Reading Brain</span>
+          </div>
+          <h3>Reader Come Home</h3>
+          <p class="author">Maryanne Wolf</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(16)" style="border-color: #22C55E">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #22C55E"></div>
+            <span class="book-dewey">658.11 · Entrepreneurship</span>
+          </div>
+          <h3>Side Hustles for Dummies</h3>
+          <p class="author">Alan Simon</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(17)" style="border-color: #0EA5E9">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #0EA5E9"></div>
+            <span class="book-dewey">001.4 · Research Methods</span>
+          </div>
+          <h3>The Craft of Research</h3>
+          <p class="author">Booth, Colomb & Williams</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(18)" style="border-color: #7C3AED">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #7C3AED"></div>
+            <span class="book-dewey">153.14 · Knowledge Management</span>
+          </div>
+          <h3>Building a Second Brain</h3>
+          <p class="author">Tiago Forte</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(19)" style="border-color: #10B981">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #10B981"></div>
+            <span class="book-dewey">028.9 · Reading Practices</span>
+          </div>
+          <h3>The Art of Mindful Reading</h3>
+          <p class="author">Ella Berthoud</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(20)" style="border-color: #F59E0B">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #F59E0B"></div>
+            <span class="book-dewey">025.3 · Cataloging</span>
+          </div>
+          <h3>Introduction to Cataloging</h3>
+          <p class="author">Arlene Taylor</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(21)" style="border-color: #EF4444">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #EF4444"></div>
+            <span class="book-dewey">650.1 · Self-Development</span>
+          </div>
+          <h3>Ultralearning</h3>
+          <p class="author">Scott Young</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(22)" style="border-color: #3B82F6">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #3B82F6"></div>
+            <span class="book-dewey">510.1 · Mathematics</span>
+          </div>
+          <h3>How to Bake Pi</h3>
+          <p class="author">Eugenia Cheng</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(23)" style="border-color: #EC4899">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #EC4899"></div>
+            <span class="book-dewey">612.8 · Brain Science</span>
+          </div>
+          <h3>Brainscapes</h3>
+          <p class="author">Rebecca Schwarzlose</p>
+        </div>
+
+        <div class="book-card" onclick="showBook(24)" style="border-color: #6366F1">
+          <div class="book-meta">
+            <div class="book-dot" style="background: #6366F1"></div>
+            <span class="book-dewey">413.028 · Lexicography</span>
+          </div>
+          <h3>Word by Word</h3>
+          <p class="author">Kory Stamper</p>
+        </div>
+      </div>
+
+      <div id="book-detail" class="book-detail"></div>
+    </div>
+  </section>
+
+  <!-- Mini Case Study -->
+  <section style="padding: 64px 32px; background: white;">
+    <div class="container" style="max-width: 800px;">
+      <div class="case-study-box">
+        <h3>🔬 Mini Case Study — Flow Across Domains</h3>
+        <p style="color: var(--slate); font-size: 16px; line-height: 1.8; margin-bottom: 16px;">
+          Indexes from neuroscience (<em>Livewired</em>), psychology (<em>Mindset</em>), philosophy (<em>Lost in Thought</em>), and positive psychology (<em>Flow</em>) independently surface structures around <strong>adaptation</strong>, <strong>challenge</strong>, and <strong>transformation</strong>.
+        </p>
+        <p style="color: #334155; font-size: 15px; padding: 16px; background: white; border-radius: 12px; border-left: 4px solid var(--teal);">
+          <strong>Neural Shelf reveals:</strong> These are the same underlying pattern expressed through different disciplinary vocabularies—<em>challenge-matched engagement leading to transformation</em>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connections Section -->
+  <section id="connections" style="background: #fafafa;">
+    <div class="container">
+      <h2>Cross-Disciplinary Bridges</h2>
+      <p class="section-desc">Where concepts from different fields reveal hidden structural similarities.</p>
+
+      <div class="connections-list">
+        <div class="connection" style="background: #A855F711">
+          <span class="connection-term" style="background: var(--purple)">brain adaptation</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--gold)">growth mindset</span>
+          <span class="connection-domains">Neuroscience ↔ Psychology</span>
+        </div>
+
+        <div class="connection" style="background: #EC489911">
+          <span class="connection-term" style="background: var(--pink)">flow state</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--indigo)">contemplation</span>
+          <span class="connection-domains">Flow Psychology ↔ Philosophy</span>
+        </div>
+
+        <div class="connection" style="background: #4ECDC411">
+          <span class="connection-term" style="background: var(--teal)">arbitrary words</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--mint)">alphabetical order</span>
+          <span class="connection-domains">Linguistics ↔ Library Science</span>
+        </div>
+
+        <div class="connection" style="background: #F5A62311">
+          <span class="connection-term" style="background: var(--orange)">pattern detection</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--purple)">brain interfacing</span>
+          <span class="connection-domains">Systems Theory ↔ Neuroscience</span>
+        </div>
+
+        <div class="connection" style="background: #5BC0EB11">
+          <span class="connection-term" style="background: var(--sky)">face-to-face conversation</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--coral)">children as philosophers</span>
+          <span class="connection-domains">Digital Life ↔ Philosophy</span>
+        </div>
+
+        <div class="connection" style="background: #7C3AED11">
+          <span class="connection-term" style="background: #7C3AED">progressive summarization</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: #14B8A6">conceptual models</span>
+          <span class="connection-domains">Knowledge Management ↔ UX Design</span>
+        </div>
+
+        <div class="connection" style="background: #EF444411">
+          <span class="connection-term" style="background: #EF4444">retrieval practice</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--pink)">flow state</span>
+          <span class="connection-domains">Ultralearning ↔ Flow Psychology</span>
+        </div>
+
+        <div class="connection" style="background: #3B82F611">
+          <span class="connection-term" style="background: #3B82F6">abstraction</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--orange)">pattern detection</span>
+          <span class="connection-domains">Mathematics ↔ Systems Theory</span>
+        </div>
+
+        <div class="connection" style="background: #6366F111">
+          <span class="connection-term" style="background: #6366F1">semantic drift</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--teal)">arbitrary words</span>
+          <span class="connection-domains">Lexicography ↔ Linguistics</span>
+        </div>
+
+        <div class="connection" style="background: #10B98111">
+          <span class="connection-term" style="background: #10B981">deep reading</span>
+          <span class="connection-arrow">→</span>
+          <span class="connection-term" style="background: var(--indigo)">contemplation</span>
+          <span class="connection-domains">Mindful Reading ↔ Philosophy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outputs Section -->
+  <section style="padding: 64px 32px; background: white;">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="font-size: 28px; margin-bottom: 32px;">What Neural Shelf Produces</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--coral);">
+          <span style="font-weight: 600;">Concept Maps</span>
+        </div>
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--gold);">
+          <span style="font-weight: 600;">Cross-Domain Frameworks</span>
+        </div>
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--teal);">
+          <span style="font-weight: 600;">Learning Roadmaps</span>
+        </div>
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--purple);">
+          <span style="font-weight: 600;">Research Questions</span>
+        </div>
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--sky);">
+          <span style="font-weight: 600;">Personal Knowledge Graphs</span>
+        </div>
+        <div style="padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid var(--pink);">
+          <span style="font-weight: 600;">Curriculum Architectures</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study Numbers -->
+  <section style="padding: 64px 32px; background: #fafafa;">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="font-size: 28px; margin-bottom: 12px;">The Practice in Numbers</h2>
+      <p class="section-desc" style="margin-bottom: 32px;">An ongoing systematic practice spanning psychology, neuroscience, philosophy, design, linguistics, mathematics, and beyond.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+        <div style="padding: 24px; background: linear-gradient(135deg, #E85D7515, #E85D7505); border-radius: 16px;">
+          <div style="font-size: 36px; font-weight: 800; color: var(--coral);">50+</div>
+          <div style="font-size: 14px; color: var(--slate);">Books Indexed</div>
+        </div>
+        <div style="padding: 24px; background: linear-gradient(135deg, #4ECDC415, #4ECDC405); border-radius: 16px;">
+          <div style="font-size: 36px; font-weight: 800; color: var(--teal);">2,500+</div>
+          <div style="font-size: 14px; color: var(--slate);">Concepts Extracted</div>
+        </div>
+        <div style="padding: 24px; background: linear-gradient(135deg, #A855F715, #A855F705); border-radius: 16px;">
+          <div style="font-size: 36px; font-weight: 800; color: var(--purple);">100+</div>
+          <div style="font-size: 14px; color: var(--slate);">Mining Sessions</div>
+        </div>
+        <div style="padding: 24px; background: linear-gradient(135deg, #F8D56815, #F8D56805); border-radius: 16px;">
+          <div style="font-size: 36px; font-weight: 800; color: var(--gold);">25+</div>
+          <div style="font-size: 14px; color: var(--slate);">Dewey Classes</div>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 16px; color: var(--slate); font-size: 14px; font-style: italic;">Ongoing since 2024</p>
+
+      <div style="margin-top: 24px; padding: 20px; background: white; border-radius: 12px; border: 2px dashed #e5e7eb;">
+        <p style="margin: 0; color: var(--slate); font-size: 15px;">
+          <strong style="color: var(--indigo);">Output:</strong> A framework revealing how <em>brain plasticity</em> (neuroscience), <em>growth mindset</em> (psychology), <em>flow states</em> (positive psychology), and <em>contemplation</em> (philosophy) share structural patterns around <em>challenge-matched engagement leading to transformation</em>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-bar">
+      <div class="footer-segment" style="background: var(--coral)"></div>
+      <div class="footer-segment" style="background: var(--orange)"></div>
+      <div class="footer-segment" style="background: var(--gold)"></div>
+      <div class="footer-segment" style="background: var(--lime)"></div>
+      <div class="footer-segment" style="background: var(--teal)"></div>
+      <div class="footer-segment" style="background: var(--sky)"></div>
+      <div class="footer-segment" style="background: var(--indigo)"></div>
+      <div class="footer-segment" style="background: var(--purple)"></div>
+      <div class="footer-segment" style="background: var(--pink)"></div>
+      <div class="footer-segment" style="background: var(--mint)"></div>
+    </div>
+    <p>Neural Shelf · Knowledge Architecture · Index Mining · Learning Design</p>
+    <p class="small">Dewey · LoC · BISAC Classification Systems</p>
+
+    <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #334155;">
+      <p style="color: #e2e8f0; font-size: 15px; margin-bottom: 16px;">
+        Interested in research collaboration, learning design roles, or methodology demos?
+      </p>
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="mailto:alkocurek7@gmail.com" style="padding: 10px 24px; background: linear-gradient(135deg, var(--coral), var(--purple)); color: white; text-decoration: none; border-radius: 24px; font-weight: 600; font-size: 14px; transition: transform 0.2s;">
+          ✉️ Email
+        </a>
+        <a href="mailto:alkocurek7@gmail.com?subject=Neural%20Shelf%20Methodology%20Demo%20Request" style="padding: 10px 24px; background: linear-gradient(135deg, var(--teal), var(--sky)); color: white; text-decoration: none; border-radius: 24px; font-weight: 600; font-size: 14px;">
+          🧪 Request Methodology Demo
+        </a>
+        <a href="https://www.linkedin.com/in/alexis-kocurek" target="_blank" style="padding: 10px 24px; background: #0A66C2; color: white; text-decoration: none; border-radius: 24px; font-weight: 600; font-size: 14px;">
+          💼 LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const books = [
+      {
+        title: 'A Place for Everything',
+        color: '#6EE7B7',
+        concepts: [
+          { term: 'books', subs: 'authorities, chained, codices, horn books, forbidden' },
+          { term: 'printing', subs: 'form, formats, impact, symbols, TOC' },
+          { term: 'alphabetical order', subs: 'history, organizing principle' },
+          { term: 'bibliographies', subs: 'biographical dictionaries' },
+          { term: 'typographical elements', subs: 'distinguishing, conventions' },
+          { term: 'booksellers/shops', subs: 'box file, broadsides' },
+        ]
+      },
+      {
+        title: 'Nasty, Brutish & Short',
+        color: '#E85D75',
+        concepts: [
+          { term: 'children', subs: 'natural philosophers, objective attitude, minds' },
+          { term: 'brain', subs: 'info processing, consciousness, insights' },
+          { term: 'common good', subs: 'conceptual ethics' },
+          { term: 'code switching', subs: 'cosmic philosophy' },
+          { term: 'can vs could', subs: 'epistemic landscapes' },
+          { term: 'responsibility', subs: 'character, cautiousness' },
+        ]
+      },
+      {
+        title: 'Mindset',
+        color: '#F8D568',
+        concepts: [
+          { term: 'fixed mindset', subs: 'common, danger of, myth of fixed abilities' },
+          { term: 'growth mindset', subs: 'danger of false growth, praising, shepherded' },
+          { term: 'beliefs', subs: 'changing from fixed, health context' },
+          { term: 'brain connectivity', subs: 'neural pathways, multidimensional strategies' },
+          { term: 'struggle', subs: 'how it stimulates growth, supporting' },
+          { term: 'academic bullying', subs: 'accelerated learning, value of slow' },
+        ]
+      },
+      {
+        title: 'Livewired',
+        color: '#A855F7',
+        concepts: [
+          { term: 'adaptation', subs: 'changes in environ, windows, dopamine' },
+          { term: 'brain interfacing', subs: 'within-a-brain connections' },
+          { term: 'bilingualism', subs: 'language, biologic basis of personality' },
+          { term: 'behaviors', subs: 'asking or requesting, language guide, motivating' },
+          { term: 'awareness', subs: 'change, pathway, automatic attention' },
+          { term: 'bottom-up processes', subs: 'biologically encoded experiences' },
+        ]
+      },
+      {
+        title: 'Lost in Thought',
+        color: '#6C5CE7',
+        concepts: [
+          { term: 'intellectual life', subs: 'academics, scholars, disillusionment' },
+          { term: 'Aristotle', subs: 'contemplation, final end, highest good, happiness' },
+          { term: 'ambition', subs: 'danger of, love of learning, work of art' },
+          { term: 'contemplation', subs: 'happiness, ultimate end, leisure' },
+          { term: 'difficulty of circumstances', subs: 'capacities colored by, human dignity' },
+          { term: 'virtues', subs: 'learned by imitation, Saint Augustine' },
+        ]
+      },
+      {
+        title: 'The Language Puzzle',
+        color: '#4ECDC4',
+        concepts: [
+          { term: 'abstract concepts', subs: 'arbitrary words, reliance on metaphor' },
+          { term: 'arbitrary words', subs: 'comprehensible in sentence, distinguishing human' },
+          { term: 'alphabets', subs: 'origins, adult learners differ from children' },
+          { term: 'artefacts', subs: 'continuous record, artificial languages' },
+          { term: 'association matrix', subs: 'JLM, asymmetry' },
+          { term: 'semantic change', subs: 'rules of, acoustic convergence' },
+        ]
+      },
+      {
+        title: 'Wabi-Sabi',
+        color: '#F472B6',
+        concepts: [
+          { term: 'absence', subs: 'discerning, fundamental truths of nature' },
+          { term: 'beauty', subs: 'deeply human response, different interpretations' },
+          { term: 'discerning', subs: 'enigma, fitting in of' },
+          { term: 'homes', subs: 'inspired by, principles for' },
+          { term: 'hospitality', subs: 'life versus, reason for' },
+          { term: 'student presentation', subs: 'not, birth of' },
+        ]
+      },
+      {
+        title: 'I Will Teach You to Be Rich',
+        color: '#A8D86E',
+        concepts: [
+          { term: 'income', subs: 'earnings, controlling, increasing, unequal' },
+          { term: 'insurance', subs: 'car, health, homeowner, life, PMI' },
+          { term: 'interest rates', subs: 'APR, car loans, mortgage, changes' },
+          { term: 'investing', subs: 'automatic, building blocks, fear, invisible scripts' },
+          { term: 'index funds', subs: '# of funds, vs paying off bad loans' },
+          { term: 'illusory superiority', subs: 'information glut, installment loans' },
+        ]
+      },
+      {
+        title: 'Reclaiming Conversation',
+        color: '#5BC0EB',
+        concepts: [
+          { term: 'Facebook', subs: 'cruelty, data attention, getting off of, mood experiment' },
+          { term: 'face-to-face conversation', subs: 'apologies, breakups, empathy, bonding' },
+          { term: 'family', subs: 'checking location, community, phone @ mealtimes' },
+          { term: 'FOMO', subs: 'feedback, training, downer' },
+          { term: 'flow', subs: 'focus, attention, concentration' },
+          { term: 'friction-free', subs: 'weak ties, work meetings, romance' },
+        ]
+      },
+      {
+        title: 'Thinking in Systems',
+        color: '#F5A623',
+        concepts: [
+          { term: 'Black Swan events', subs: 'edge of chaos, complex systems' },
+          { term: 'brain-human', subs: 'storytelling, free will, prediction machine' },
+          { term: 'basins of attraction', subs: 'bell curve, normal distribution' },
+          { term: 'bottlenecks', subs: 'genetic, bounded rationality, choice theory' },
+          { term: 'butterfly effect', subs: 'Brownian motion, emergence' },
+          { term: 'pattern detection', subs: 'hyper-adherent to, emergent quality' },
+        ]
+      },
+      {
+        title: 'Flow',
+        color: '#EC4899',
+        concepts: [
+          { term: 'flow state', subs: 'how it feels, completely engrossed in task' },
+          { term: 'challenge vs skill', subs: 'balance, anxiety when challenge > skill' },
+          { term: 'boredom', subs: 'unchallenging or < skill' },
+          { term: 'apathy', subs: 'unskilled + challenging' },
+          { term: 'self-satisfaction', subs: 'boost in mood, worthiness' },
+          { term: 'creativity', subs: 'exits body, "you are what you watch"' },
+        ]
+      },
+      {
+        title: 'Being Wrong',
+        color: '#8B5CF6',
+        concepts: [
+          { term: 'beliefs', subs: 'confirmation bias, evidence, naive realism, theorizing' },
+          { term: 'certainty', subs: 'allure of, cognitive dissonance, defenses, knowledge vs' },
+          { term: 'blindness', subs: 'error blindness, denial of, inattentional' },
+          { term: 'bias blind spot', subs: 'blaming other people defense' },
+          { term: 'abrupt belief change', subs: 'gradual changes, instinct' },
+          { term: 'categorization', subs: 'bodily knowledge, buyers remorse' },
+        ]
+      },
+      {
+        title: 'The Reading Life',
+        color: '#06B6D4',
+        concepts: [
+          { term: 'accessibility of reading', subs: 'bibliocasuism, analog vs digital' },
+          { term: 'books', subs: 'definition, attributes, format, marginalia' },
+          { term: 'reading practices', subs: 'long-form texts, slow reading, social media' },
+          { term: 'e-reading', subs: 'devices used for, ergonomics, Kindle' },
+          { term: 'libraries', subs: 'NY Public Library, little free libraries' },
+          { term: 'demographics of reading', subs: 'gender gap, by servants, by students' },
+        ]
+      },
+      {
+        title: 'The Book',
+        color: '#D946EF',
+        concepts: [
+          { term: 'bookhood', subs: 'emotions, bibliophiles, books as proxies, odors' },
+          { term: 'books as objects', subs: 'powerful in folklore, protocol objects, talismanic' },
+          { term: 'censorship', subs: 'reactionary/illiberal material, banned books week' },
+          { term: 'codices', subs: 'fixity of bound codex, similarity to e-readers' },
+          { term: 'book burning', subs: 'false equivalence, powerfully symbolic' },
+          { term: 'bibliomancy', subs: 'colonial ethnography, sortes tradition' },
+        ]
+      },
+      {
+        title: 'Design of Everyday Things',
+        color: '#14B8A6',
+        concepts: [
+          { term: 'affordances', subs: 'minimizing chance of error, perceived' },
+          { term: 'conceptual models', subs: 'as story, mental models, taming complexity' },
+          { term: 'constraints', subs: 'design process, logical, semantic, cultural, physical' },
+          { term: 'feedback', subs: 'behavioral, as design, communicating progress' },
+          { term: 'design', subs: 'activity-centered, human-centered, double-diamond' },
+          { term: 'discoverability', subs: 'affordances, conceptual models, mappings' },
+        ]
+      },
+      {
+        title: 'Reader Come Home',
+        color: '#F97316',
+        concepts: [
+          { term: 'attention', subs: 'cognitive patience, shared attention, immersion' },
+          { term: 'brain (reading brain)', subs: 'biliterate, plasticity, executive function' },
+          { term: 'deep reading', subs: 'analytical processes, loss of, perspective taking' },
+          { term: 'digital devices', subs: 'screen media, multitasking, empathy loss' },
+          { term: 'reading', subs: 'comprehension, dialogic reading, how we read' },
+          { term: 'written language', subs: 'collective consciousness, social media, email' },
+        ]
+      },
+      {
+        title: 'Side Hustles for Dummies',
+        color: '#22C55E',
+        concepts: [
+          { term: 'brainstorming', subs: 'where, about, what, for business plans, who' },
+          { term: 'budgeting', subs: 'transforming into value chains' },
+          { term: 'side hustles', subs: 'small business, home-based businesses' },
+          { term: 'entrepreneurship', subs: 'self-employment, beginner guides' },
+          { term: 'business skills', subs: 'personal finance, new business enterprises' },
+          { term: 'business plans', subs: 'processes, success, failure, controlling' },
+        ]
+      },
+      {
+        title: 'The Craft of Research',
+        color: '#0EA5E9',
+        concepts: [
+          { term: 'arguments', subs: 'alternatives, clarity, commissioning, core of' },
+          { term: 'claims', subs: 'conceptual, evaluating, ill-defined, point of' },
+          { term: 'warrants', subs: 'challenging, errors, null, unstated' },
+          { term: 'qualifiers', subs: 'responses, limiting scope' },
+          { term: 'abstractions', subs: 'writing, abstract nouns' },
+          { term: 'acknowledgments', subs: 'responses, stances' },
+        ]
+      },
+      {
+        title: 'Building a Second Brain',
+        color: '#7C3AED',
+        concepts: [
+          { term: 'PARA method', subs: 'projects, areas, resources, archives' },
+          { term: 'progressive summarization', subs: 'layers, bold, highlight, executive' },
+          { term: 'digital garden', subs: 'Zettelkasten, commonplace book, notes' },
+          { term: 'capture', subs: 'code-recipe, info hoarding, highlighting' },
+          { term: 'express', subs: 'distillation, intermediate packets' },
+          { term: 'design thinking', subs: 'Stanford Design School, iteration' },
+        ]
+      },
+      {
+        title: 'The Art of Mindful Reading',
+        color: '#10B981',
+        concepts: [
+          { term: 'deep reading', subs: 'uninterrupted, immersion, losing urself' },
+          { term: 'comfort reads', subs: 'calming books, catharsis, bedtime' },
+          { term: 'communal reading', subs: 'street library, little free library' },
+          { term: 'curating', subs: 'alphabetizing, notebook, quotes' },
+          { term: 'flow', subs: 'daily reading, awareness, music' },
+          { term: 'decluttering', subs: 'decorating ideas, nooks, walking' },
+        ]
+      },
+      {
+        title: 'Introduction to Cataloging',
+        color: '#F59E0B',
+        concepts: [
+          { term: 'Dewey Decimal', subs: 'abridged, base number, book number' },
+          { term: 'BISAC', subs: 'subject headings, commercial classification' },
+          { term: 'call number', subs: 'chain of classes, class-elsewhere' },
+          { term: 'classifiers walk', subs: 'comprehensive works, computer science' },
+          { term: 'cross reference notes', subs: 'cutter numbers, rule of application' },
+          { term: 'American Library Assoc', subs: 'authorization notes, best practices' },
+        ]
+      },
+      {
+        title: 'Ultralearning',
+        color: '#EF4444',
+        concepts: [
+          { term: 'directness', subs: 'transfer, immersion, project-based' },
+          { term: 'drill', subs: 'rate-determining steps, weakness focus' },
+          { term: 'retrieval', subs: 'testing effect, free recall, spaced repetition' },
+          { term: 'feedback', subs: 'outcome, informational, corrective' },
+          { term: 'retention', subs: 'spacing, proceduralization, overlearning' },
+          { term: 'metalearning', subs: 'why, what, how, research phase' },
+        ]
+      },
+      {
+        title: 'How to Bake Pi',
+        color: '#3B82F6',
+        concepts: [
+          { term: 'abstraction', subs: 'removing context, essential properties' },
+          { term: 'category theory', subs: 'relationships, morphisms, functors' },
+          { term: 'analogies', subs: 'sameness, structure preservation' },
+          { term: 'illumination', subs: 'proof, logic, intuition' },
+          { term: 'generalization', subs: 'dimension, extending patterns' },
+          { term: 'axioms', subs: 'starting points, self-evident truths' },
+        ]
+      },
+      {
+        title: 'Brainscapes',
+        color: '#EC4899',
+        concepts: [
+          { term: 'brain maps', subs: 'topography, cortical organization, plasticity' },
+          { term: 'sensory processing', subs: 'vision, touch, hearing, integration' },
+          { term: 'body representation', subs: 'homunculus, phantom limbs' },
+          { term: 'face recognition', subs: 'fusiform area, prosopagnosia' },
+          { term: 'spatial navigation', subs: 'hippocampus, place cells, grid cells' },
+          { term: 'neural real estate', subs: 'competition, use-dependent' },
+        ]
+      },
+      {
+        title: 'Word by Word',
+        color: '#6366F1',
+        concepts: [
+          { term: 'defining', subs: 'citational evidence, semantic drift' },
+          { term: 'lexicography', subs: 'dictionary making, editorial process' },
+          { term: 'usage', subs: 'descriptive vs prescriptive, correctness' },
+          { term: 'etymology', subs: 'word origins, borrowing, coinage' },
+          { term: 'pronunciation', subs: 'regional variation, standardization' },
+          { term: 'corpus', subs: 'citation files, reading & marking' },
+        ]
+      }
+    ];
+
+    const colors = ['#E85D75', '#F5A623', '#F8D568', '#A8D86E', '#4ECDC4', '#5BC0EB', '#6C5CE7', '#A855F7', '#EC4899', '#6EE7B7'];
+
+    function showBook(index) {
+      const book = books[index];
+      const detail = document.getElementById('book-detail');
+
+      let conceptsHtml = '';
+      book.concepts.forEach((c, i) => {
+        const color = colors[i % colors.length];
+        conceptsHtml += `
+          <div class="concept-item" style="background: ${color}22; border: 2px solid ${color}">
+            <div class="term" style="color: ${color}">${c.term}</div>
+            ${c.subs ? `<div class="subs">→ ${c.subs}</div>` : ''}
+          </div>
+        `;
+      });
+
+      detail.innerHTML = `
+        <h3 style="color: ${book.color}">Concepts from ${book.title}</h3>
+        <div class="concepts-grid">${conceptsHtml}</div>
+      `;
+      detail.style.border = `3px solid ${book.color}`;
+      detail.classList.add('active');
+    }
+  </script>
+</body>
+</html>
