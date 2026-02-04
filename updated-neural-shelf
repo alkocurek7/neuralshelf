@@ -663,7 +663,7 @@
       </p>
 
       <!-- Artifact image -->
-      <img src="artifact-page-01.png" alt="Live index mining artifact showing color-coded concept extraction from How to Bake Pi" style="width: 100%; border-radius: 16px; border: 2px solid #e5e7eb; margin-bottom: 16px;">
+      <img src="neural-shelf-indexing-artifact.jpg" alt="Live index mining artifact showing color-coded concept extraction from How to Bake Pi" style="width: 100%; border-radius: 16px; border: 2px solid #e5e7eb; margin-bottom: 16px;">
 
       <p style="color: #94a3b8; font-size: 13px; font-style: italic; text-align: center; margin: 0;">
         Live index mining artifact. Color and spatial proximity encode conceptual structure prior to synthesis.
